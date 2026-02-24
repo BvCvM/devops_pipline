@@ -1,0 +1,155 @@
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+  <div class="card shadow-lg border-0 p-5 rounded-4" style="max-width: 500px;">
+    <h3 class="text-center mb-4 text-success fw-bold">
+      👨‍🏫 Inscription Professeur
+    </h3>
+
+    <form #signInNgForm="ngForm" (ngSubmit)="signUpProfesseur()">
+      <div *ngIf="showAlert" class="alert alert-danger text-center" role="alert">
+        {{ message }}
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="prenom"
+          name="prenom"
+          [(ngModel)]="professeur.firstName"
+          required
+          placeholder="Prénom"
+        />
+        <label for="prenom">Prénom</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="nom"
+          name="nom"
+          [(ngModel)]="professeur.lastName"
+          required
+          placeholder="Nom"
+        />
+        <label for="nom">Nom</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="address"
+          name="address"
+          [(ngModel)]="professeur.adress"
+          required
+          placeholder="Adresse"
+        />
+        <label for="address">Adresse</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          [(ngModel)]="professeur.email"
+          required
+          placeholder="Email"
+        />
+        <label for="email">Email</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          name="password"
+          [(ngModel)]="professeur.password"
+          required
+          minlength="6"
+          placeholder="Mot de passe"
+        />
+        <label for="password">Mot de passe</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="cin"
+          name="cin"
+          [(ngModel)]="professeur.cin"
+          required
+          placeholder="CIN"
+        />
+        <label for="cin">CIN</label>
+      </div>
+
+      <div class="form-floating mb-3">
+        <input
+          type="text"
+          class="form-control"
+          id="diplome"
+          name="diplome"
+          [(ngModel)]="professeur.diplome"
+          required
+          placeholder="Diplôme"
+        />
+        <label for="diplome">Diplôme</label>
+      </div>
+
+      <div class="form-floating mb-4">
+        <input
+          type="date"
+          class="form-control"
+          id="dateDebutTravail"
+          name="dateDebutTravail"
+          [(ngModel)]="professeur.dateDebutTravail"
+          required
+          placeholder="Date de début"
+        />
+        <label for="dateDebutTravail">Date de début de travail</label>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-gradient-green w-100 py-2 fw-semibold"
+        [disabled]="isSubmitting"
+      >
+        {{ isSubmitting ? '⏳ Inscription...' : '✅ S\'inscrire' }}
+      </button>
+    </form>
+  </div>
+</div>
+
+<style>
+  .btn-gradient-green {
+    background: linear-gradient(135deg, #198754, #28a745);
+    color: white;
+    border: none;
+    transition: 0.3s;
+  }
+
+  .btn-gradient-green:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #157347, #218838);
+  }
+
+  .card {
+    animation: fadeIn 0.8s ease;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

@@ -1,0 +1,119 @@
+<div class="dashboard-container">
+ 
+<!-- Sidebar -->
+<aside class="sidebar">
+  <div class="sidebar-header">
+    <div class="logo-circle">🏫</div>
+    <h2>Espace Administrateur</h2>
+  </div>
+
+  <nav class="sidebar-nav">
+    <ul>
+
+      <!-- 👨‍🎓 Élèves Dropdown -->
+      <li class="nav-item" (click)="toggleDropdown('eleve')">
+        <span class="icon">👨‍🎓</span>
+        <span class="label">Élèves</span>
+        <span class="arrow">{{ showEleveDropdown ? '▲' : '▼' }}</span>
+      </li>
+      <ul *ngIf="showEleveDropdown" class="dropdown">
+        <li (click)="navigateTo('signUpEleve')">Ajouter Élève</li>
+        <li (click)="navigateTo('gestionEleve')">Gestion Élèves</li>
+        
+      </ul>
+
+      <!-- 👨‍🏫 Professeurs Dropdown -->
+      <li class="nav-item" (click)="toggleDropdown('prof')">
+        <span class="icon">👨‍🏫</span>
+        <span class="label">Professeurs</span>
+        <span class="arrow">{{ showProfDropdown ? '▲' : '▼' }}</span>
+      </li>
+      <ul *ngIf="showProfDropdown" class="dropdown">
+        <li (click)="navigateTo('signUpProfesseur')">Ajouter Professeur</li>
+        <li (click)="navigateTo('gestionProf')">Gestion Professeurs</li>
+
+      </ul>
+
+      <!-- 🏫 Classes -->
+      <li (click)="navigateTo('gestionClasse')" class="nav-item">
+        <span class="icon">🏫</span>
+        <span class="label">Classes</span>
+      </li>
+
+      <!-- 📚 Matières -->
+      <li (click)="navigateTo('gestionMatiere')" class="nav-item">
+        <span class="icon">📚</span>
+        <span class="label">Matières</span>
+      </li>
+
+      <!-- 🧾 Cours -->
+      <li (click)="navigateTo('gestionCours')" class="nav-item">
+        <span class="icon">📝</span>
+        <span class="label">Cours</span>
+      </li>
+
+      <!-- 📞 Contact -->
+      <li (click)="navigateTo('contact')" class="nav-item">
+        <span class="icon">📞</span>
+        <span class="label">Contact</span>
+      </li>
+
+    </ul>
+  </nav>
+</aside>
+
+
+
+
+  <!-- Main content -->
+  <main class="main-content">
+    <header class="main-header">
+      <h1>Façonnez l’Avenir de l’Éducation 🌟</h1>
+      <p>Supervisez vos classes, enseignants et élèves avec simplicité et vision.</p>
+    </header>
+    <section class="cards-container">
+      <!-- 👨‍🎓 Élèves -->
+      <div class="card">
+        <div class="card-icon">👨‍🎓</div>
+        <h3>Nombre d'élèves</h3>
+        <div class="count">{{ totalEleves }}</div>
+      </div>
+    
+      <!-- 👨‍🏫 Professeurs -->
+      <div class="card">
+        <div class="card-icon">👨‍🏫</div>
+        <h3>Nombre de professeurs</h3>
+        <div class="count">{{ totalProfs }}</div>
+      </div>
+    
+      <!-- 🏫 Classes -->
+      <div class="card">
+        <div class="card-icon">🏫</div>
+        <h3>Nombre de classes</h3>
+        <div class="count">{{ totalClasses }}</div>
+      </div>
+    
+      <!-- 📚 Matières -->
+      <div class="card">
+        <div class="card-icon">📚</div>
+        <h3>Nombre de matières</h3>
+        <div class="count">{{ totalMatieres }}</div>
+      </div>
+    
+      <!-- 🧾 Cours -->
+      <div class="card">
+        <div class="card-icon">📝</div>
+        <h3>Nombre de cours</h3>
+        <div class="count">{{ totalCours }}</div>
+      </div>
+    
+      <!-- 📞 Contact -->
+      <div class="card" (click)="navigateTo('contact')">
+        <div class="card-icon">📞</div>
+        <h3>Contact</h3>
+        <p>Besoin d’aide ? Contactez-nous</p>
+      </div>
+    </section>
+    
+  </main>
+</div>

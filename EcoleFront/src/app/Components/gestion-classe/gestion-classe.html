@@ -1,0 +1,218 @@
+<!-- classes.component.html -->
+
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-primary m-0" style="font-size: 2.2em">
+      📘 Gestion des Classes
+    </h2>
+    <button
+      type="button"
+      class="btn btn-gradient"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      <i class="bi bi-plus-circle me-2"></i> Ajouter une classe
+    </button>
+  </div>
+
+  <!-- Table -->
+  <div class="card shadow border-0 rounded-4">
+    <div class="card-body p-4">
+      <table class="table align-middle table-hover text-center">
+        <thead class="table-primary text-dark">
+          <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Année Scolaire</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of classeList()">
+            <td>{{ item.id }}</td>
+            <td class="fw-semibold">{{ item.titre }}</td>
+            <td>{{ item.anneescolaire }}</td>
+            <td>
+              <div class="btn-group">
+                <button
+                  (click)="getclass(item.id)"
+                  class="btn btn-sm btn-outline-success me-2"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModalmodifier"
+                >
+                  <i class="bi bi-pencil-square me-1"></i> Modifier
+                </button>
+                <button
+                  (click)="deleteClasee(item.id)"
+                  class="btn btn-sm btn-outline-danger"
+                >
+                  <i class="bi bi-trash3 me-1"></i> Supprimer
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div
+        *ngIf="classeList().length === 0"
+        class="text-center text-muted py-4"
+      >
+        <i class="bi bi-inbox fs-3 d-block mb-2"></i>
+        <p>Aucune classe enregistrée pour le moment.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Ajouter -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="false"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow rounded-4 border-0">
+      <div class="modal-header bg-primary text-white rounded-top-4">
+        <h5 class="modal-title fw-bold" id="exampleModalLabel">
+          ➕ Ajouter une Classe
+        </h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Fermer"
+        ></button>
+      </div>
+      <div class="modal-body p-4">
+        <form [formGroup]="formAddClasee">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Titre *</label>
+            <input
+              class="form-control form-control-lg"
+              formControlName="titre"
+              placeholder="Ex : 3ème A"
+            />
+            <small
+              *ngIf="submitted && formAddClasee.get('titre')?.invalid"
+              class="text-danger"
+              >Le titre est obligatoire</small
+            >
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Année scolaire *</label>
+            <input
+              class="form-control form-control-lg"
+              formControlName="anneescolaire"
+              placeholder="Ex : 2024-2025"
+            />
+            <small
+              *ngIf="submitted && formAddClasee.get('anneescolaire')?.invalid"
+              class="text-danger"
+              >L’année scolaire est obligatoire</small
+            >
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Fermer
+        </button>
+        <button (click)="addClasse()" type="button" class="btn btn-primary">
+          Enregistrer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Modifier -->
+<div
+  class="modal fade"
+  id="exampleModalmodifier"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow rounded-4 border-0">
+      <div class="modal-header bg-success text-white rounded-top-4">
+        <h5 class="modal-title fw-bold">✏️ Modifier la Classe</h5>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="modal"
+          aria-label="Fermer"
+        ></button>
+      </div>
+      <div class="modal-body p-4">
+        <form [formGroup]="FormGroupviewupd">
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Titre *</label>
+            <input
+              class="form-control form-control-lg"
+              formControlName="titre"
+              placeholder="Titre"
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label fw-semibold">Année scolaire *</label>
+            <input
+              class="form-control form-control-lg"
+              formControlName="anneescolaire"
+              placeholder="Année scolaire"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-dismiss="modal"
+        >
+          Fermer
+        </button>
+        <button (click)="updateClasse()" type="button" class="btn btn-success">
+          Enregistrer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Styles personnalisés -->
+<style>
+  .btn-gradient {
+    background: linear-gradient(135deg, #007bff, #00c6ff);
+    color: white;
+    border: none;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+
+  .btn-gradient:hover {
+    transform: scale(1.05);
+    background: linear-gradient(135deg, #0062cc, #00aaff);
+  }
+
+  .table th {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .card {
+    transition: 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+</style>

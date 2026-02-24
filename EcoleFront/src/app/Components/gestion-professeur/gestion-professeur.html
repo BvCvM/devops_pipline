@@ -1,0 +1,71 @@
+<div class="container mt-5">
+    <div class="text-center mb-4">
+      <h2 class="fw-bold text-primary mb-3" style="font-size: 2rem;">
+        👨‍🏫 Liste des Professeurs
+      </h2>
+      <hr class="w-25 mx-auto border-primary opacity-75" />
+    </div>
+  
+    <!-- Professors Table Card -->
+    <div class="card shadow-sm border-0 rounded-4">
+      <div class="card-body p-4">
+        <div class="table-responsive">
+          <table class="table table-hover align-middle text-center">
+            <thead class="table-primary text-dark">
+              <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>CIN</th>
+                <th>Diplôme</th>
+                <th>Date Début Travail</th>
+                <th>Adresse</th>
+                <th>Téléphone</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let professeur of ProfList()">
+                <td data-label="ID" class="fw-semibold">{{ professeur.id }}</td>
+                <td data-label="Nom">{{ professeur.lastName }}</td>
+                <td data-label="Prénom">{{ professeur.firstName }}</td>
+                <td data-label="Email">{{ professeur.email }}</td>
+                <td data-label="CIN">{{ professeur.cin }}</td>
+                <td data-label="Diplôme">
+                  <span class="badge bg-info text-dark px-3 py-2">
+                    {{ professeur.diplome }}
+                  </span>
+                </td>
+                <td data-label="Date Début Travail">{{ professeur.dateDebutTravail | date:'yyyy-MM-dd' }}</td>
+                <td data-label="Adresse">{{ professeur.adress }}</td>
+                <td data-label="Téléphone">{{ professeur.phone }}</td>
+                <td data-label="Actions">
+                  <div class="d-flex justify-content-center gap-2">
+                    <button
+                      (click)="navigateToModifProf(professeur.id)"
+                      class="btn btn-sm btn-outline-success px-3"
+                    >
+                      <i class="bi bi-pencil-square me-1"></i> Modifier
+                    </button>
+                    <button
+                      (click)="deleteProf(professeur.id)"
+                      class="btn btn-sm btn-outline-danger px-3"
+                    >
+                      <i class="bi bi-trash3 me-1"></i> Supprimer
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  
+        <!-- Empty State -->
+        <div *ngIf="ProfList().length === 0" class="text-center mt-4 text-muted">
+          <i class="bi bi-emoji-frown fs-1 d-block mb-2"></i>
+          <p class="fs-5">Aucun professeur trouvé pour le moment.</p>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,123 @@
+<div class="container mt-5">
+
+  <!-- Header & Add Button -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="fw-bold text-primary mb-0">📘 Gestion des Matières</h2>
+    <button class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#addMatiereModal">
+      <i class="bi bi-plus-circle me-2"></i> Ajouter une Matière
+    </button>
+  </div>
+
+  <!-- Table Section -->
+  <div class="card shadow-lg border-0 rounded-4">
+    <div class="card-body p-4">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-primary text-center">
+          <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Durée (h)</th>
+            <th>Coefficient</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody class="text-center">
+          <tr *ngFor="let item of matiereList()">
+            <td>{{ item.id }}</td>
+            <td class="fw-semibold">{{ item.nom }}</td>
+            <td>{{ item.duree }}</td>
+            <td>{{ item.coeff }}</td>
+            <td>
+              <div class="btn-group">
+                <button class="btn btn-outline-success btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editMatiereModal"
+                        (click)="getmatiere(item.id)">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-outline-danger btn-sm" (click)="deleteMatiere(item.id)">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ================= Add Matiere Modal ================= -->
+<div class="modal fade" id="addMatiereModal" tabindex="-1" aria-labelledby="addMatiereLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title" id="addMatiereLabel">Ajouter une Matière</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formAddMatiere">
+          <div class="mb-3">
+            <label class="form-label">Nom</label>
+            <input type="text" class="form-control" placeholder="Ex: Mathématiques" formControlName="nom" />
+            <small *ngIf="submitted && formAddMatiere.get('nom')?.invalid" class="text-danger">
+              Le nom est obligatoire
+            </small>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Coefficient</label>
+            <input type="number" class="form-control" placeholder="Ex: 2" formControlName="coeff" />
+            <small *ngIf="submitted && formAddMatiere.get('coeff')?.invalid" class="text-danger">
+              Le coefficient est obligatoire
+            </small>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Durée (heures)</label>
+            <input type="number" class="form-control" placeholder="Ex: 4" formControlName="duree" />
+            <small *ngIf="submitted && formAddMatiere.get('duree')?.invalid" class="text-danger">
+              La durée est obligatoire
+            </small>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button (click)="addMatiere()" type="button" class="btn btn-primary">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= Edit Matiere Modal ================= -->
+<div class="modal fade" id="editMatiereModal" tabindex="-1" aria-labelledby="editMatiereLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="editMatiereLabel">Modifier la Matière</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="FormGroupviewupd">
+          <div class="mb-3">
+            <label class="form-label">Nom</label>
+            <input type="text" class="form-control" formControlName="nom" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Coefficient</label>
+            <input type="number" class="form-control" formControlName="coeff" />
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Durée (heures)</label>
+            <input type="number" class="form-control" formControlName="duree" />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button (click)="updateMatiere()" type="button" class="btn btn-success">Mettre à jour</button>
+      </div>
+    </div>
+  </div>
+</div>

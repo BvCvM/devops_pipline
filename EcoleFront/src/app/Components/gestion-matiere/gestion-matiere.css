@@ -1,0 +1,26 @@
+.btn-gradient {
+    background: linear-gradient(90deg, #007bff, #00bcd4);
+    color: #fff;
+    border: none;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 50px;
+    transition: 0.3s;
+  }
+
+  .btn-gradient:hover {
+    background: linear-gradient(90deg, #0069d9, #0097a7);
+    transform: translateY(-2px);
+  }
+
+  table th {
+    font-weight: 600;
+  }
+
+  table td {
+    vertical-align: middle;
+  }
+
+  .card {
+    border-radius: 15px;
+  }

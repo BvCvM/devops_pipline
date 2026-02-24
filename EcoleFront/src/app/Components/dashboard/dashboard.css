@@ -1,0 +1,213 @@
+/* GENERAL LAYOUT */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+    background-color: #f1f5f9;
+  }
+  
+  .dashboard-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* SIDEBAR */
+  .sidebar {
+    width: 300px; /* Bigger sidebar */
+    background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+    color: #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    box-shadow: 6px 0 25px rgba(0, 0, 0, 0.25);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  /* Sidebar header (logo + title) */
+  .sidebar-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+    text-align: center;
+  }
+  
+  .logo-circle {
+    width: 70px;
+    height: 70px;
+    background: #3b82f6;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+    margin-bottom: 10px;
+  }
+  
+  .sidebar-header h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+  }
+  
+  /* Navigation links */
+  .sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    margin: 8px 0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #e2e8f0;
+  }
+  
+  .nav-item:hover {
+    background-color: rgba(59, 130, 246, 0.15);
+    transform: translateX(6px);
+    color: #60a5fa;
+  }
+  
+  .nav-item .icon {
+    font-size: 1.4rem;
+    width: 30px;
+    text-align: center;
+  }
+  
+  .nav-item.active {
+    background-color: rgba(59, 130, 246, 0.25);
+    border-left: 4px solid #3b82f6;
+    color: #ffffff;
+    box-shadow: inset 0 0 10px rgba(59, 130, 246, 0.3);
+  }
+  /* DROPDOWN STYLES */
+.dropdown {
+  list-style: none;
+  margin: 0;
+  padding-left: 25px;
+  background-color: #273449;
+  border-left: 3px solid #3b82f6;
+}
+
+.dropdown li {
+  padding: 10px 15px;
+  color: #cbd5e1;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.dropdown li:hover {
+  background-color: #334155;
+  color: #ffffff;
+}
+
+.arrow {
+  margin-left: auto;
+  font-size: 0.8rem;
+}
+
+  
+  /* MAIN CONTENT */
+  .main-content {
+    flex: 1;
+    padding: 40px 50px;
+    overflow-y: auto;
+    background-color: #f8fafc;
+  }
+  
+  .main-header {
+    margin-bottom: 40px;
+  }
+  
+  .main-header h1 {
+    font-size: 2rem;
+    color: #0f172a;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  
+  .main-header p {
+    color: #64748b;
+    font-size: 1rem;
+  }
+  
+  .cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 per row */
+    gap: 20px; /* smaller space between them */
+    justify-items: center;
+    align-items: center;
+    margin-top: 30px;
+  }
+  
+  .card {
+    background-color: #ffffff;
+    border-radius: 22px;
+    padding: 60px 40px; /* 🧩 bigger padding = larger card */
+    width: 100%;
+    max-width: 380px; /* 💥 wider cards */
+    height: 260px; /* 💥 taller cards */
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.25s ease;
+    border: 1px solid #e2e8f0;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 10px 26px rgba(59, 130, 246, 0.25);
+    border-color: #3b82f6;
+  }
+  
+  .card-icon {
+    font-size: 2.8rem; /* 💥 bigger icons */
+    color: #3b82f6;
+    margin-bottom: 14px;
+    transition: color 0.3s ease;
+  }
+  
+  .card h3 {
+    margin: 8px 0;
+    font-size: 1.5rem; /* bigger text */
+    color: #0f172a;
+    font-weight: 600;
+  }
+  
+  .card p {
+    color: #64748b;
+    font-size: 1rem;
+    margin-top: 4px;
+  }
+  
+  .count {
+    font-size: 1.2rem;
+    color: #0d6efd;
+    background: #e7f1ff;
+    border-radius: 12px;
+    padding: 6px 12px;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  
+    
+
+
+
+    

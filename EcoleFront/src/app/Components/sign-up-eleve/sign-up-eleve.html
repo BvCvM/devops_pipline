@@ -1,0 +1,120 @@
+<div class="d-flex justify-content-center align-items-center vh-100 bg-gradient" 
+     style="background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);">
+  
+  <div class="card shadow-lg border-0 rounded-4 p-5 w-100" style="max-width: 500px; background: #fff;">
+    
+    <div class="text-center mb-4">
+      <h2 class="fw-bold text-primary">Inscription Élève</h2>
+      <p class="text-muted">Rejoignez notre communauté scolaire 🌟</p>
+    </div>
+
+    <form #signInNgForm="ngForm" (ngSubmit)="signUpEleve()">
+      
+      <div *ngIf="showAlert" class="alert alert-danger text-center rounded-3">
+        {{ message }}
+      </div>
+
+      <!-- Nom -->
+      <div class="mb-3">
+        <label for="firstName" class="form-label fw-semibold">Nom</label>
+        <input type="text" id="firstName" name="firstName"
+               [(ngModel)]="eleve.firstName"
+               class="form-control shadow-sm rounded-3"
+               placeholder="Entrez votre nom"
+               required #firstName="ngModel">
+        <div *ngIf="firstName.invalid && firstName.touched" class="text-danger small">Champ requis</div>
+      </div>
+
+      <!-- Prénom -->
+      <div class="mb-3">
+        <label for="lastName" class="form-label fw-semibold">Prénom</label>
+        <input type="text" id="lastName" name="lastName"
+               [(ngModel)]="eleve.lastName"
+               class="form-control shadow-sm rounded-3"
+               placeholder="Entrez votre prénom"
+               required #lastName="ngModel">
+        <div *ngIf="lastName.invalid && lastName.touched" class="text-danger small">Champ requis</div>
+      </div>
+
+      <!-- Niveau scolaire -->
+      <div class="mb-3">
+        <label for="niveauScolaire" class="form-label fw-semibold">Niveau scolaire</label>
+        <select id="niveauScolaire" name="niveauScolaire"
+                [(ngModel)]="eleve.niveauScolaire"
+                class="form-select shadow-sm rounded-3"
+                required #niveauScolaire="ngModel">
+          <option value="" disabled selected>Choisissez un niveau</option>
+          <option *ngFor="let niveau of niveaux" [value]="niveau">{{ niveau }}</option>
+        </select>
+        <div *ngIf="niveauScolaire.invalid && niveauScolaire.touched" class="text-danger small">Champ requis</div>
+      </div>
+
+      <!-- Date de naissance -->
+      <div class="mb-3">
+        <label for="dob" class="form-label fw-semibold">Date de naissance</label>
+        <input type="date" id="dob" name="dob"
+               [(ngModel)]="eleve.dob"
+               class="form-control shadow-sm rounded-3"
+               required #dob="ngModel">
+        <div *ngIf="dob.invalid && dob.touched" class="text-danger small">Champ requis</div>
+      </div>
+
+      <!-- Adresse -->
+      <div class="mb-3">
+        <label for="address" class="form-label fw-semibold">Adresse</label>
+        <input type="text" id="address" name="address"
+               [(ngModel)]="eleve.adress"
+               class="form-control shadow-sm rounded-3"
+               placeholder="Entrez votre adresse"
+               required #address="ngModel">
+        <div *ngIf="address.invalid && address.touched" class="text-danger small">Champ requis</div>
+      </div>
+
+      <!-- Téléphone -->
+      <div class="mb-3">
+        <label for="phone" class="form-label fw-semibold">Numéro de téléphone</label>
+        <input type="tel" id="phone" name="phone"
+               [(ngModel)]="eleve.phone"
+               class="form-control shadow-sm rounded-3"
+               placeholder="Ex: 06 12 34 56 78"
+               required #phone="ngModel">
+        <div *ngIf="phone.invalid && phone.touched" class="text-danger small">Champ requis</div>
+      </div>
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label fw-semibold">Adresse email</label>
+        <input type="email" id="email" name="email"
+               [(ngModel)]="eleve.email"
+               class="form-control shadow-sm rounded-3"
+               placeholder="ex: nom@example.com"
+               required #email="ngModel">
+        <div *ngIf="email.invalid && email.touched" class="text-danger small">Email invalide</div>
+      </div>
+
+      <!-- Mot de passe -->
+      <div class="mb-4">
+        <label for="password" class="form-label fw-semibold">Mot de passe</label>
+        <input type="password" id="password" name="password"
+               [(ngModel)]="eleve.password"
+               class="form-control shadow-sm rounded-3"
+               placeholder="Entrez votre mot de passe"
+               minlength="4" required #password="ngModel">
+        <div *ngIf="password.invalid && password.touched" class="text-danger small">
+          Le mot de passe doit contenir au moins 4 caractères
+        </div>
+      </div>
+
+      <!-- Bouton -->
+      <button type="submit"
+              class="btn btn-primary w-100 py-2 fw-semibold rounded-3 shadow-sm"
+              [disabled]="signInNgForm.invalid || isSubmitting">
+        <i class="bi bi-person-plus-fill me-2"></i> S'inscrire
+      </button>
+    </form>
+
+    <div class="text-center mt-3">
+      <a href="#" class="text-decoration-none small text-primary fw-semibold">Mot de passe oublié ?</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+body {
+    background-color: #f5f6f7;
+  }
+  
+  .card {
+    background-color: #f8f9fa !important;
+  }
+  
+  .form-control:focus,
+  .form-select:focus {
+    box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.25);
+    border-color: #adb5bd;
+  }
+  
+  button.btn-secondary {
+    background-color: #6c757d;
+    border: none;
+    transition: 0.3s;
+  }
+  
+  button.btn-secondary:hover {
+    background-color: #5a6268;
+  }
+   th{
+    background-color: aqua;
+   }

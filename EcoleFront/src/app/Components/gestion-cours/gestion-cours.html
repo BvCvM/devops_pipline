@@ -1,0 +1,104 @@
+<div class="container my-5">
+    <div class="card shadow-lg border-0 rounded-4 bg-light p-4">
+      <h2 class="text-center mb-4 fw-bold text-secondary">Gestion des Cours</h2>
+  
+      <form>
+        <!-- Course Title -->
+        <div class="form-group mb-3">
+          <label for="titre" class="fw-semibold text-muted">Titre du cours</label>
+          <input
+            type="text"
+            id="titre"
+            [(ngModel)]="titre"
+            name="titre"
+            class="form-control border-0 shadow-sm rounded-3"
+            placeholder="Saisir le titre du cours"
+            required
+          />
+        </div>
+  
+        <!-- Matière Dropdown -->
+        <div class="form-group mb-3">
+          <label for="matiere" class="fw-semibold text-muted">Matière</label>
+          <select
+            id="matiere"
+            [(ngModel)]="selectedMatiereId"
+            name="selectedMatiereId"
+            class="form-select border-0 shadow-sm rounded-3"
+            required
+          >
+            <option value="">-- Choisir une matière --</option>
+            <option *ngFor="let m of matiereOptions()" [value]="m.id">{{ m.nom }}</option>
+          </select>
+        </div>
+  
+        <!-- File Upload -->
+        <div class="form-group mb-3">
+          <label for="file" class="fw-semibold text-muted">Fichier du cours</label>
+  
+          <div
+            class="border border-2 border-secondary-subtle rounded-3 p-4 text-center bg-white shadow-sm"
+
+          >
+            <i class="bi bi-upload text-secondary fs-3"></i>
+            <p class="mt-2 mb-1 text-muted">Glissez votre fichier ici ou cliquez ci-dessous</p>
+  
+            <input
+              type="file"
+              id="file"
+              (change)="onFileSelected($event)"
+              class="form-control border-0 mt-2"
+              required
+            />
+  
+            <div *ngIf="fileName" class="text-success mt-2 small fw-semibold">
+              ✅ Fichier sélectionné : {{ fileName }}
+            </div>
+          </div>
+        </div>
+  
+        <!-- Submit Button -->
+        <button
+          type="button"
+          class="btn btn-secondary w-100 py-2 rounded-3 fw-semibold mt-3 shadow-sm"
+          (click)="addCours()"
+        >
+          Ajouter le cours
+        </button>
+      </form>
+
+      <div class="container mt-4">
+        <h2>Available Courses</h2>
+      
+        <div *ngIf="loading">Loading...</div>
+      
+        <table *ngIf="!loading && coursList.length > 0" class="table table-bordered mt-3" >
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Titre du cours</th>
+              <th>emplacement du fichier</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cours of coursList">
+              <td style="background-color:orange;">{{ cours.id }}</td>
+              <td >{{ cours.titre }}</td>
+              <td>{{ cours.filecours }}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="deleteCours(cours.id!)">Delete</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      
+        <div *ngIf="!loading && coursList.length === 0">
+          No courses available.
+        </div>
+      </div>
+      
+
+    </div>
+  </div>
+  
