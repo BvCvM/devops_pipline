@@ -46,6 +46,6 @@ volumes:
   mysql_data:
 
 networks:
-  app-network:
-    external: true
-    name: app-network
+  app-network: {
+    driver: bridge
+  }
