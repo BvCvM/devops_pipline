@@ -25,7 +25,7 @@ pipeline {
         // Backend Part
         stage('Backend image build') {
             steps {
-                dir('EcoleBack') {
+                dir('devops_pipeline/EcoleBack') {
                     sh 'mvn clean package -DskipTests'
                     sh 'docker build -t ecole-back:latest .'
                     sh 'docker push ecole-back:latest'
@@ -36,7 +36,7 @@ pipeline {
         // Frontend Part
         stage('Frontend - Build image') {
             steps {
-                dir('EcoleFront') {
+                dir('devops_pipeline/EcoleFront') {
                     sh 'docker build -t ecole-front:latest .'
                     sh 'docker push ecole-front:latest'
                 }
