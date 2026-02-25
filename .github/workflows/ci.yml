@@ -49,5 +49,5 @@ jobs:
     - name: run docker compose
       run : |
         docker compose down 
-        docker compose up -d
+        docker compose up -d 
 
