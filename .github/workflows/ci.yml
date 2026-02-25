@@ -5,7 +5,7 @@ on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches:
-     -main 
+      -main 
 
 jobs:
   # This workflow contains a single job called "build"
@@ -16,7 +16,7 @@ jobs:
     steps:
     # ces lignes nous permet de faire un clonage depuis notre répertoire dans github
     - name: checkout code source
-      uses: actions/checkout@v6
+      uses: actions/checkout@v4
 
     # ces lignes nous permet de creer le dossier "target"
     - name: build Spring boot
@@ -24,7 +24,7 @@ jobs:
        cd EcoleBack 
        chmod +x mvnw
        ./mvnw clean package
-       ./mwnw clean verify
+       ./mvnw clean verify
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
@@ -39,7 +39,7 @@ jobs:
     - name: build Spring boot image
       run : |
         docker build -t ${{ vars.DOCKERHUB_USERNAME }}/EcoleBack-app EcoleBack
-        docker push ${{ vars.DOCKERHUB_USERNAME }}/EcoleBack
+        docker push ${{ vars.DOCKERHUB_USERNAME }}/EcoleBack-app
 
     - name: build Angular image
       run : |
