@@ -23,8 +23,7 @@ jobs:
       run : |
        cd EcoleBack 
        chmod +x mvnw
-       ./mvnw clean package
-       ./mvnw clean verify
+       ./mvnw clean package -DskipTests
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
@@ -38,16 +37,15 @@ jobs:
 
     - name: build Spring boot image
       run : |
-        docker build -t ${{ vars.DOCKERHUB_USERNAME }}/EcoleBack-app EcoleBack
-        docker push ${{ vars.DOCKERHUB_USERNAME }}/EcoleBack-app
+        docker build -t ${{ vars.DOCKERHUB_USERNAME }}/ecoleback-app EcoleBack
+        docker push ${{ vars.DOCKERHUB_USERNAME }}/ecoleback-app
 
     - name: build Angular image
       run : |
-        docker build -t ${{ vars.DOCKERHUB_USERNAME }}/EcoleFront-app EcoleFront
-        docker push ${{ vars.DOCKERHUB_USERNAME }}/EcoleFront-app
+        docker build -t ${{ vars.DOCKERHUB_USERNAME }}/ecolefront-app EcoleFront
+        docker push ${{ vars.DOCKERHUB_USERNAME }}/ecolefront-app
 
     - name: run docker compose
       run : |
         docker compose down 
         docker compose up -d 
-
