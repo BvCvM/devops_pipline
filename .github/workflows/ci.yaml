@@ -10,7 +10,7 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
-    # La machine qui va lancer mes processus
+    # La machine qui va lancer  mes processus
     runs-on: ubuntu-latest
   # La Séquence des étapes qui vont etres executées.
     steps:
