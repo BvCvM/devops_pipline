@@ -6,7 +6,7 @@ WORKDIR /app
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring
 
-# Adjust this if your jar name differs
+# jar file dans un variable
 ARG JAR_FILE=target/etude-0.0.1-SNAPSHOT.jar
 COPY ${JAR_FILE} /app/app.jar
 
