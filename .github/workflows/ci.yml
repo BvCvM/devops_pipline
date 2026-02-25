@@ -16,11 +16,11 @@ jobs:
     steps:
     # ces lignes nous permet de faire un clonage depuis notre répertoire dans github
     - name: checkout code source
-    - uses: actions/checkout@v6
+      uses: actions/checkout@v6
 
     # ces lignes nous permet de creer le dossier "target"
     - name: build Spring boot
-    - run : |
+      run : |
        cd EcoleBack 
        chmod +x mvnw
        ./mvnw clean package
@@ -37,17 +37,17 @@ jobs:
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: build Spring boot image
-    - run : |
+      run : |
         docker build -t ${{ vars.DOCKERHUB_USERNAME }}/EcoleBack-app EcoleBack
         docker push ${{ vars.DOCKERHUB_USERNAME }}/EcoleBack
 
     - name: build Angular image
-    - run : |
+      run : |
         docker build -t ${{ vars.DOCKERHUB_USERNAME }}/EcoleFront-app EcoleFront
         docker push ${{ vars.DOCKERHUB_USERNAME }}/EcoleFront-app
 
     - name: run docker compose
-    - run : |
+      run : |
         docker compose down 
         docker compose up -d
 
