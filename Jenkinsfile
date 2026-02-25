@@ -9,18 +9,7 @@ pipeline {
 
     stages {
 
-        // Cleanup + clone Repo
-        stage('CleanUp') {
-            steps {
-                deleteDir() // Clean the workspace before starting
-            }
-        }
-
-        stage('Clone repository') {
-            steps {
-                sh 'git clone https://github.com/BvCvM/devops_pipline.git'
-            }
-        }
+  
 
         // Backend Part
         stage('Backend image build') {
