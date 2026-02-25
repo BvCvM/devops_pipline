@@ -12,7 +12,7 @@ jobs:
   build:
     # La machine qui va lancer mes processus
     runs-on: ubuntu-latest
-  # La Séquence des étapes qui vont etres executées
+  # La Séquence des étapes qui vont etres executées.
     steps:
     # ces lignes nous permet de faire un clonage depuis notre répertoire dans github
     - name: checkout code source
