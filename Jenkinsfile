@@ -16,8 +16,8 @@ pipeline {
             steps {
                 dir('EcoleBack') {
                     sh 'mvn clean package -DskipTests'
-                    sh 'docker build -t ecole-back:latest .'
-                    sh 'docker push ecole-back:latest'
+                    sh 'docker build -t bassemamri/ecole-back:latest .'
+                    sh 'docker push bassemamri/ecole-back:latest'
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
         stage('Frontend - Build image') {
             steps {
                 dir('EcoleFront') {
-                    sh 'docker build -t ecole-front:latest .'
+                    sh 'docker build -t bassemamri/ecole-front:latest .'
                     sh 'docker push ecole-front:latest'
                 }
             }
