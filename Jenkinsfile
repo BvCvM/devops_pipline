@@ -27,7 +27,7 @@ pipeline {
             steps {
                 dir('EcoleFront') {
                     sh 'docker build -t bassemamri/ecole-front:latest .'
-                    sh 'docker push ecole-front:latest'
+                    sh 'docker push bassemamri/ecole-front:latest'
                 }
             }
         }
