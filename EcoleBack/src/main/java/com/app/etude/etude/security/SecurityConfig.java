@@ -30,9 +30,14 @@ public class SecurityConfig {
     private static final String[] WHITE_LIST_URL = {
         "/api/v1/verfy/**",
         "/api/v1/users/**",
-        "/api/v1/User/**", // ADD THIS LINE
+        "/api/v1/User/**",
         "/api/v1/auth/**",
         "/api/v1/cours/**",
+        "/api/v1/classes/**",
+        "/api/v1/eleves/**",
+        "/api/v1/professeurs/**",
+        "/api/v1/matieres/**",
+        "/api/v1/Role/**",
         "/v2/api-docs",
         "/v3/api-docs",
         "/v3/api-docs/**",
@@ -42,9 +47,7 @@ public class SecurityConfig {
         "/configuration/security",
         "/swagger-ui/**",
         "/swagger-ui.html",
-        "/webjars/**",
-        "/api/**",
-        "/api/v1/Role/**"
+        "/webjars/**"
     };
 
     private final JwtAuthenticationFilter jwtAuthFilter; // Filtre personnalisé pour extraire et valider le JWT
