@@ -9,7 +9,6 @@ pipeline {
 
     stages {
 
-  
 
         // Backend Part
         stage('Backend image build') {

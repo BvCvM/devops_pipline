@@ -53,7 +53,7 @@ public class SecurityConfig {
         http
             // Désactivation de la protection CSRF (car on utilise des JWT, pas de session côté serveur)
             .csrf(AbstractHttpConfigurer::disable)
-
+            .cors(cors -> cors.configure(http))
             // Configuration des autorisations pour les requêtes HTTP
             .authorizeHttpRequests(req -> req
                 .requestMatchers(WHITE_LIST_URL) // Autoriser sans authentification les URLs listées
