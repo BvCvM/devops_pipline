@@ -51,23 +51,6 @@ public class ApplicationConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-   @Bean
-public CorsFilter corsFilter() { 
-    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    final CorsConfiguration config = new CorsConfiguration();
-
-    config.setAllowCredentials(true);
-    // commAllow both localhost and any IP (for VM access)
-    //config.setAllowedOriginPatterns(Arrays.asList("*")); // This allows any origin
-    //config.setAllowedHeaders(Arrays.asList("*"));
-    //config.setAllowedMethods(Arrays.asList("PUT", "GET", "POST", "DELETE", "PATCH", "OPTIONS"));
-    config.addAllowedOriginPattern("*");  // ← use addAllowedOriginPattern (singular)
-    config.addAllowedHeader("*");         // ← use addAllowedHeader (singular)
-    config.addAllowedMethod("*");         // ← use addAllowedMethod (singular)
-    config.addExposedHeader("Authorization"); // ← expose auth header
-
-    source.registerCorsConfiguration("/**", config);
-    return new CorsFilter(source);
-}
+ 
+ 
 }

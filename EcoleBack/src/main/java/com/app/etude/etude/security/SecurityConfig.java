@@ -12,6 +12,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
@@ -48,40 +51,44 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider; // Fournisseur d'authentification (ex: DaoAuthenticationProvider)
     private final LogoutHandler logoutHandler; // Handler personnalisé pour gérer la déconnexion (invalidation de token, etc.)
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-            // Désactivation de la protection CSRF (car on utilise des JWT, pas de session côté serveur)
-            .csrf(AbstractHttpConfigurer::disable)
-            .cors(cors -> cors.configure(http))
-            // Configuration des autorisations pour les requêtes HTTP
-            .authorizeHttpRequests(req -> req
-                .requestMatchers(WHITE_LIST_URL) // Autoriser sans authentification les URLs listées
-                .permitAll()
-                .anyRequest() // Toute autre requête
-                .authenticated() // doit être authentifiée
+ @Bean
+public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+        .csrf(AbstractHttpConfigurer::disable)
+        .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+        .authorizeHttpRequests(req -> req
+            .requestMatchers(WHITE_LIST_URL)
+            .permitAll()
+            .anyRequest()
+            .authenticated()
+        )
+        .sessionManagement(session -> session
+            .sessionCreationPolicy(STATELESS)
+        )
+        .authenticationProvider(authenticationProvider)
+        .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+        .logout(logout -> logout
+            .logoutUrl("/api/v1/auth/logout")
+            .addLogoutHandler(logoutHandler)
+            .logoutSuccessHandler((request, response, authentication) ->
+                SecurityContextHolder.clearContext()
             )
+        );
 
-            // Gestion de session stateless (JWT, pas de session côté serveur)
-            .sessionManagement(session -> session
-                .sessionCreationPolicy(STATELESS)
-            )
+    return http.build();
+}
 
-            // Fournisseur d'authentification utilisé par Spring Security
-            .authenticationProvider(authenticationProvider)
-
-            // Ajout du filtre JWT AVANT le filtre d’authentification UsernamePasswordAuthenticationFilter
-            .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-
-            // Configuration de la déconnexion personnalisée
-            .logout(logout -> logout
-                .logoutUrl("/api/v1/auth/logout") // URL de déconnexion
-                .addLogoutHandler(logoutHandler) // Handler exécuté lors de la déconnexion
-                .logoutSuccessHandler((request, response, authentication) ->
-                    SecurityContextHolder.clearContext() // Nettoyage du contexte de sécurité après déconnexion
-                )
-            );
-
-        return http.build(); // Construction de la chaîne de filtres de sécurité
-    }
+@Bean
+public CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration config = new CorsConfiguration();
+    config.setAllowCredentials(true);
+    config.addAllowedOriginPattern("*");
+    config.addAllowedHeader("*");
+    config.addAllowedMethod("*");
+    config.addExposedHeader("Authorization");
+    
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", config);
+    return source;
+}
 }
