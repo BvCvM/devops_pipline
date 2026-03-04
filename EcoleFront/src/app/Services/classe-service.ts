@@ -10,7 +10,7 @@ import { LabelValu } from '../../Models/label-valu';
 })
 export class ClasseService {
 
-baseUrl = environment.baseUrl+ "classes"
+baseUrl = environment.apiUrl+ "classes"
   constructor(private _httpClient :HttpClient) { }
 
   getAllClasse(): Observable<Classe[]> {

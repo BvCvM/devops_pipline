@@ -10,7 +10,7 @@ import { Eleve } from '../../Models/eleve';
 })
 export class EleveService {
 
-  private baseUrl = environment.baseUrl + 'User';
+  private baseUrl = environment.apiUrl + 'User';
 
   constructor(private http: HttpClient) {}
 

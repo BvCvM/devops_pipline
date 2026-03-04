@@ -9,7 +9,7 @@ import { environment } from '../../environments/development.environment';
 })
 export class MatiereService {
  
-  baseUrl = environment.baseUrl+ "matiere"
+  baseUrl = environment.apiUrl+ "matiere"
   constructor(private _httpClient :HttpClient) { }
 
   getAllMatiere(): Observable<Matiere[]> {

@@ -10,7 +10,7 @@ import { Cours } from '../../Models/cours';
 })
 export class CoursService {
 
-  private baseUrl = environment.baseUrl +'cours';
+  private baseUrl = environment.apiUrl +'cours';
 
   constructor(private http: HttpClient) { }
 

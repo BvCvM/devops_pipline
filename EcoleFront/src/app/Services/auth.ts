@@ -14,7 +14,7 @@ import { Professeur } from '../../Models/professeur';
   providedIn: 'root'
 })
 export class AuthService {
- baseUrl = environment.baseUrl+ "auth"
+ baseUrl = environment.apiUrl+ "auth"
     //baseUrlcontprof = environment.baseUrll+ "/professeurs"
 //baseUrlcontuser = environment.baseUrll+ "/profil"
 

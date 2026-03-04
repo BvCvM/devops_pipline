@@ -10,7 +10,7 @@ import { Professeur } from '../../Models/professeur';
 })
 export class ProfService {
 
-  private baseUrl = environment.baseUrl + 'User';
+  private baseUrl = environment.apiUrl + 'User';
 
   constructor(private http: HttpClient) {}
 
