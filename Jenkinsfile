@@ -14,9 +14,9 @@ pipeline {
         stage('Backend image build') {
             steps {
                 dir('EcoleBack') {
-                    sh 'mvn clean package -DskipTests'
-                    sh 'docker build -t bassemamri/ecole-back:latest .'
-                    sh 'docker push bassemamri/ecole-back:latest'
+                    bat 'mvn clean package -DskipTests'
+                    bat 'docker build -t bassemamri/ecole-back:latest .'
+                    bat 'docker push bassemamri/ecole-back:latest'
                 }
             }
         }
@@ -25,8 +25,8 @@ pipeline {
         stage('Frontend - Build image') {
             steps {
                 dir('EcoleFront') {
-                    sh 'docker build -t bassemamri/ecole-front:latest .'
-                    sh 'docker push bassemamri/ecole-front:latest'
+                    bat 'docker build -t bassemamri/ecole-front:latest .'
+                    bat 'docker push bassemamri/ecole-front:latest'
                 }
             }
         }
@@ -35,8 +35,8 @@ pipeline {
 
         stage('Deploy with Docker Compose') {
             steps {
-                sh 'docker compose down || true'
-                sh 'docker compose up -d'
+                bat 'docker compose down || true'
+                bat 'docker compose up -d'
             }
         }
     }
