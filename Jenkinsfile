@@ -16,8 +16,8 @@ pipeline {
             steps {
                 dir('EcoleBack') {
                     sh 'mvn clean package -DskipTests'
-                    sh 'docker build -t bassemamri/ecole-back:latest .'
-                    sh 'docker push bassemamri/ecole-back:latest'
+                    sh 'docker build -t bassemamri/ecoleback-app:latest .'
+                    sh 'docker push bassemamri/ecoleback-app:latest'
                 }
             }
         }
@@ -26,22 +26,21 @@ pipeline {
         stage('Frontend - Build image') {
             steps {
                 dir('EcoleFront') {
-                    sh 'docker build -t bassemamri/ecole-front:latest .'
-                    sh 'docker push bassemamri/ecole-front:latest'
+                    sh 'docker build -t bassemamri/ecolefront-app:latest .'
+                    sh 'docker push bassemamri/ecolefront-app:latest'
                 }
             }
         }
 
         // ==================== DEPLOY ====================
 
-        stage('Deploy with Kubernetes') {
+        stage('Deploy to Kubernetes') {
             steps {
-                withKubeConfig([credentialsId: 'kubeconfig']) {
-                    
-                    sh 'kubectl apply -f /home/MachineMaster/devops_pipline/Kubernetes/'
-                    sh 'kubectl rollout restart deployment ecole-back'
-                    sh 'kubectl rollout restart deployment ecole-front'
-                }
+                sh 'kubectl apply -f Kubernetes/database.yaml'
+                sh 'kubectl apply -f Kubernetes/backend.yaml'
+                sh 'kubectl apply -f Kubernetes/frontend.yaml'
+                sh 'kubectl rollout restart deployment/backend'
+                sh 'kubectl rollout restart deployment/frontend'
             }
         }
     }
