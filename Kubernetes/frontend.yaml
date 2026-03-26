@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: bassemamri/ecolefront-app:latest
+        image: bassemamri/ecole-front:latest
         ports:
         - containerPort: 80
 ---
