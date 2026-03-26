@@ -34,10 +34,14 @@ pipeline {
 
         // ==================== DEPLOY ====================
 
-        stage('Deploy with Docker Compose') {
+        stage('Deploy with Kubernetes') {
             steps {
-                sh 'docker compose down || true'
-                sh 'docker compose up -d'
+                withKubeConfig([credentialsId: 'kubeconfig']) {
+                    
+                    sh 'kubectl apply -f Kubernetes/'
+                    sh 'kubectl rollout restart deployment ecole-back'
+                    sh 'kubectl rollout restart deployment ecole-front'
+                }
             }
         }
     }
