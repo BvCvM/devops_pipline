@@ -38,7 +38,7 @@ pipeline {
             steps {
                 withKubeConfig([credentialsId: 'kubeconfig']) {
                     
-                    sh 'kubectl apply -f Kubernetes/'
+                    sh 'kubectl apply -f /home/MachineMaster/devops_pipline/Kubernetes/'
                     sh 'kubectl rollout restart deployment ecole-back'
                     sh 'kubectl rollout restart deployment ecole-front'
                 }
