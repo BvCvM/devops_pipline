@@ -3,7 +3,8 @@ pipeline {
 
     tools {
         maven 'Maven'      
-        nodejs 'Node'   
+        nodejs 'Node' 
+        jdk 'LocalJDK17'
     }
 
 
