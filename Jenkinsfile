@@ -35,8 +35,8 @@ pipeline {
 
         stage('Deploy with Docker Compose') {
             steps {
-                bat 'docker compose down || true'
-                bat 'docker compose up -d'
+                sh 'docker compose down || true'
+                sh 'docker compose up -d'
             }
         }
     }
