@@ -4,7 +4,6 @@ pipeline {
     tools {
         maven 'Maven'      
         nodejs 'Node'   
-        jdk 'JDK-env'
     }
 
 
@@ -15,9 +14,9 @@ pipeline {
         stage('Backend image build') {
             steps {
                 dir('EcoleBack') {
-                    bat 'mvn clean package -DskipTests'
-                    bat 'docker build -t bassemamri/ecole-back:latest .'
-                    bat 'docker push bassemamri/ecole-back:latest'
+                    sh 'mvn clean package -DskipTests'
+                    sh 'docker build -t bassemamri/ecole-back:latest .'
+                    sh 'docker push bassemamri/ecole-back:latest'
                 }
             }
         }
@@ -26,8 +25,8 @@ pipeline {
         stage('Frontend - Build image') {
             steps {
                 dir('EcoleFront') {
-                    bat 'docker build -t bassemamri/ecole-front:latest .'
-                    bat 'docker push bassemamri/ecole-front:latest'
+                    sh 'docker build -t bassemamri/ecole-front:latest .'
+                    sh 'docker push bassemamri/ecole-front:latest'
                 }
             }
         }
