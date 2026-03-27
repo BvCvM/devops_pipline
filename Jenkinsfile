@@ -14,13 +14,15 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 dir('EcoleBack') {
-                    sh '''
-                    mvn clean verify -DskipTests sonar:sonar \
-                      -Dsonar.projectKey=devops_pipline_scan \
-                      -Dsonar.host.url=http://4.233.148.62:9000 \
-                      -Dsonar.login=sqp_8e11a38f7f8a8621c2ced3ee7c184f2c1
-                    '''
-                }
+                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                        sh '''
+                        mvn clean verify -DskipTests sonar:sonar \
+                          -Dsonar.projectKey=devops_pipline_scan \
+                          -Dsonar.host.url=http://4.233.148.62:9000 \
+                          -Dsonar.token=$SONAR_TOKEN
+                        '''
+                    }
+                }            
             }
         }
 
