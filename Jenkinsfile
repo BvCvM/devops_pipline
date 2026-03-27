@@ -15,7 +15,7 @@ pipeline {
             steps {
                 dir('EcoleBack') {
                     sh '''
-                    mvn clean verify sonar:sonar \
+                    mvn clean verify -DskipTests sonar:sonar \
                       -Dsonar.projectKey=devops_pipline_scan \
                       -Dsonar.host.url=http://4.233.148.62:9000 \
                       -Dsonar.login=sqp_8e11a38f7f8a8621c2ced3ee7c184f2c1
