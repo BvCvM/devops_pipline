@@ -51,20 +51,7 @@ pipeline {
             }
         }
 
-        // ==================== DEPLOY ====================
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                    sh 'kubectl apply -f Kubernetes/pvc.yaml'
-                    sh 'kubectl apply -f Kubernetes/database.yaml'
-                    sh 'kubectl apply -f Kubernetes/backend.yaml'
-                    sh 'kubectl apply -f Kubernetes/frontend.yaml'
-                    sh 'kubectl rollout restart deployment/backend'
-                    sh 'kubectl rollout restart deployment/frontend'
-                }
-            }
+    
         }
-    }
 
 }
