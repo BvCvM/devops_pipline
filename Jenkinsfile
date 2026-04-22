@@ -6,6 +6,10 @@ pipeline {
         nodejs 'Node' 
         jdk 'LocalJDK17'
     }
+    environment {
+    IMAGE_TAG = "build-${BUILD_NUMBER}"
+    }
+
 
 
     stages {
@@ -31,8 +35,8 @@ pipeline {
             steps {
                 dir('EcoleBack') {
                     sh 'mvn clean package -DskipTests'
-                    sh 'docker build -t bassemamri/ecoleback-app:latest .'
-                    sh 'docker push bassemamri/ecoleback-app:latest'
+                    sh "docker build -t bassemamri/ecoleback-app:${IMAGE_TAG} ."
+                    sh "docker push bassemamri/ecoleback-app:${IMAGE_TAG}"
                 }
             }
         }
@@ -41,8 +45,8 @@ pipeline {
         stage('Frontend - Build image') {
             steps {
                 dir('EcoleFront') {
-                    sh 'docker build -t bassemamri/ecolefront-app:latest .'
-                    sh 'docker push bassemamri/ecolefront-app:latest'
+                    sh "docker build -t bassemamri/ecolefront-app:${IMAGE_TAG} ."
+                    sh "docker push bassemamri/ecolefront-app:${IMAGE_TAG}"
                 }
             }
         }

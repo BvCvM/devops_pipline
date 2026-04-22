@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: bassemamri/ecoleback-app:latest
+        image: bassemamri/ecoleback-app:PLACEHOLDER
         ports:
         - containerPort: 8080
         env:
