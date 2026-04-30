@@ -8,6 +8,6 @@ resources:
   - ingress.yaml
 images:
   - name: bassemamri/ecoleback-app
-    newTag: build-62
+    newTag: build-63
   - name: bassemamri/ecolefront-app
-    newTag: build-62
+    newTag: build-63
