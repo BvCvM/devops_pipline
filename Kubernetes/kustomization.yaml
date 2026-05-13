@@ -6,6 +6,8 @@ resources:
   - backend.yaml
   - frontend.yaml
   - ingress.yaml
+  - grafana.yaml
+  - prometheus.yaml
 images:
   - name: bassemamri/ecoleback-app
     newTag: build-75

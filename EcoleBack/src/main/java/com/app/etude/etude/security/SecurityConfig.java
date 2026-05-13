@@ -47,7 +47,8 @@ public class SecurityConfig {
         "/configuration/security",
         "/swagger-ui/**",
         "/swagger-ui.html",
-        "/webjars/**"
+        "/webjars/**",
+        "/actuator/**"
     };
 
     private final JwtAuthenticationFilter jwtAuthFilter; // Filtre personnalisé pour extraire et valider le JWT
