@@ -1,0 +1,30 @@
+apiVersion: argocd-image-updater.argoproj.io/v1alpha1
+kind: ImageUpdater
+metadata:
+  name: ecole-app-image-updater
+  namespace: argocd
+spec:
+  # Write-back configuration: push image tag changes back to Git
+  writeBackConfig:
+    method: "git:secret:argocd/github-creds"
+    gitConfig:
+      branch: main
+      writeBackTarget: "kustomization"
+
+  # Which ArgoCD Applications to monitor
+  applicationRefs:
+    - namePattern: "ecole-app"
+      images:
+        # Backend image
+        - alias: backend
+          imageName: "bassemamri/ecoleback-app"
+          commonUpdateSettings:
+            updateStrategy: "newest-build"
+            allowTags: "regexp:^build-[0-9]+$"
+        # Frontend image
+        - alias: frontend
+          imageName: "bassemamri/ecolefront-app"
+          commonUpdateSettings:
+            updateStrategy: "newest-build"
+            allowTags: "regexp:^build-[0-9]+$"
+
