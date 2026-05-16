@@ -7,8 +7,8 @@ metadata:
     argocd-image-updater.argoproj.io/image-list: >-
       backend=bassemamri/ecoleback-app,
       frontend=bassemamri/ecolefront-app
-    argocd-image-updater.argoproj.io/backend.update-strategy: latest
-    argocd-image-updater.argoproj.io/frontend.update-strategy: latest
+    argocd-image-updater.argoproj.io/backend.update-strategy: newest-build
+    argocd-image-updater.argoproj.io/frontend.update-strategy: newest-build
     argocd-image-updater.argoproj.io/backend.allow-tags: "regexp:^build-[0-9]+$"
     argocd-image-updater.argoproj.io/frontend.allow-tags: "regexp:^build-[0-9]+$"
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/github-creds

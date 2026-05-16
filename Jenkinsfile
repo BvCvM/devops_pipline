@@ -14,6 +14,18 @@ pipeline {
 
     stages {
 
+        stage('Check for CI Skip') {
+            steps {
+                script {
+                    def commitMessage = sh(script: 'git log -1 --pretty=%B', returnStdout: true).trim()
+                    if (commitMessage.contains('[ci skip]')) {
+                        currentBuild.result = 'NOT_BUILT'
+                        echo "Skipping build — commit message contains [ci skip]"
+                        error("Aborting: [ci skip] detected")
+                    }
+                }
+            }
+        }
 
         stage('SonarQube Analysis') {
             steps {
@@ -34,7 +46,6 @@ pipeline {
         stage('Backend image build') {
             steps {
                 dir('EcoleBack') {
-                    sh 'mvn clean package -DskipTests'
                     sh "docker build -t bassemamri/ecoleback-app:${IMAGE_TAG} ."
                     sh "docker push bassemamri/ecoleback-app:${IMAGE_TAG}"
                 }

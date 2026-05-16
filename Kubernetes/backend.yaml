@@ -12,11 +12,37 @@ spec:
       labels:
         app: backend
     spec:
+      initContainers:
+      - name: wait-for-mysql
+        image: busybox:1.36
+        command:
+        - sh
+        - -c
+        - until nc -z database 3306; do echo waiting for mysql; sleep 5; done
       containers:
       - name: backend
         image: bassemamri/ecoleback-app:latest
         ports:
         - containerPort: 8080
+        startupProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          failureThreshold: 12
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 15
         env:
         - name: SPRING_DATASOURCE_URL
           value: jdbc:mysql://database:3306/MyDB?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
@@ -30,10 +56,9 @@ kind: Service
 metadata:
   name: backend
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
   - port: 8080
     targetPort: 8080
-    nodePort: 30001
   selector:
     app: backend
