@@ -5,7 +5,8 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-options: "Delete=false"
 spec:
-  storageClassName: standard
+  storageClassName: manual
+  volumeName: mysql-pv
   accessModes:
     - ReadWriteOnce
   resources:

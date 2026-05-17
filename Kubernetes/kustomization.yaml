@@ -3,6 +3,7 @@ kind: Kustomization
 resources:
   - pvc.yaml
   - database.yaml
+  - pv.yaml
   - backend.yaml
   - frontend.yaml
   - ingress.yaml
