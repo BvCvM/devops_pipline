@@ -12,6 +12,6 @@ resources:
   - prometheus.yaml
 images:
   - name: bassemamri/ecoleback-app
-    newTag: build-94
+    newTag: build-99
   - name: bassemamri/ecolefront-app
-    newTag: build-94
+    newTag: build-99
