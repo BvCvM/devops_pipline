@@ -1,6 +1,6 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-# Kubernetes resources to deploy
+# Kubernetes resources to deploy ( just comment )
 resources:
   - pvc.yaml
   - database.yaml
