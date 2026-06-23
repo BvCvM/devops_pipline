@@ -36,7 +36,7 @@ public class SecurityConfig {
         "/api/v1/classes/**",
         "/api/v1/eleves/**",
         "/api/v1/professeurs/**",
-        "/api/v1/matieres/**",
+        "/api/v1/matiere/**",
         "/api/v1/Role/**",
         "/v2/api-docs",
         "/v3/api-docs",
