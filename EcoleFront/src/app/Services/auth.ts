@@ -14,98 +14,95 @@ import { Professeur } from '../../Models/professeur';
   providedIn: 'root'
 })
 export class AuthService {
- baseUrl = environment.apiUrl+ "auth"
-    //baseUrlcontprof = environment.baseUrll+ "/professeurs"
-//baseUrlcontuser = environment.baseUrll+ "/profil"
+  baseUrl = environment.apiUrl + "auth"
+  //baseUrlcontprof = environment.baseUrll+ "/professeurs"
+  //baseUrlcontuser = environment.baseUrll+ "/profil"
 
 
 
 
-   //constructor(private httpclient : HttpClient , private router : Router) { }
+  //constructor(private httpclient : HttpClient , private router : Router) { }
 
 
-    private router = inject(Router);
+  private router = inject(Router);
   private _httpClient = inject(HttpClient);
   private _authenticated: boolean = false;
- 
+
   // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
+  // @ Accessors
+  // -----------------------------------------------------------------------------------------------------
 
 
 
 
-    /**
-     * Setter & getter for access token
-     */
-    set accessToken(token: string)
-    {
-        localStorage.setItem('accessToken', token);
+  /**
+   * Setter & getter for access token
+   */
+  set accessToken(token: string) {
+    localStorage.setItem('accessToken', token);
+  }
+
+
+
+
+  get accessToken(): string {
+    return localStorage.getItem('accessToken') ?? '';
+  }
+
+
+
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+  /**
+   * Sign in
+   *
+   * @param credentials
+   */
+  signIn(credentials: Authrequest): Observable<any> {
+    // Throw error, if the user is already logged in
+    if (this._authenticated) {
+      return throwError(() => 'User is already logged in.');
     }
 
 
 
 
-    get accessToken(): string
-    {
-        return localStorage.getItem('accessToken') ?? '';
-    }
+    return this._httpClient
+      .post(`${this.baseUrl}/authenticate`, credentials)
+      .pipe(
+        switchMap((response: any) => {
+          // Store the access token in the local storage
+          this.accessToken = response.accessToken;
 
 
 
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+          // Set the authenticated flag to true
+          this._authenticated = true;
+
+          // Store the user on the user service
+          // this._userService.user = response.user;
+          // Return a new observable with the response
+          return of(response);
+        })
+      );
+  }
 
 
 
-
-
-
-
-
-   
-    /**
-     * Sign in
-     *
-     * @param credentials
-     */
-    signIn(credentials: Authrequest): Observable<any> {
-        // Throw error, if the user is already logged in
-        if (this._authenticated) {
-            return throwError(() => 'User is already logged in.');
-        }
-
-
-
-
-        return this._httpClient
-            .post(`${this.baseUrl}/authenticate`, credentials)
-            .pipe(
-                switchMap((response: any) => {
-                    // Store the access token in the local storage
-                    this.accessToken = response.accessToken;
-
-
-
-
-                    // Set the authenticated flag to true
-                    this._authenticated = true;
-
-                    // Store the user on the user service
-                    // this._userService.user = response.user;
-                    // Return a new observable with the response
-                    return of(response);
-                })
-            );
-    }
-
-
-   
-  signUpEleve(user: Eleve): Observable<any>
-  {
-      return this._httpClient.post(`${this.baseUrl}/registerelve`, user);
+  signUpEleve(user: Eleve): Observable<any> {
+    return this._httpClient.post(`${this.baseUrl}/registerelve`, user);
   }
 
 
@@ -114,42 +111,41 @@ export class AuthService {
 
 
 
-    /**
- * Sign up
- *
- * @param Parent
- */
-    signUpParent(user: Parent): Observable<any>
-    {
-        return this._httpClient.post(`${this.baseUrl}/registerparent`, user);
-    }
+  /**
+* Sign up
+*
+* @param Parent
+*/
+  signUpParent(user: Parent): Observable<any> {
+    return this._httpClient.post(`${this.baseUrl}/registerparent`, user);
+  }
 
 
 
-        logout(){
-            this._authenticated=false;
-            localStorage.clear();
-        }
-        /////auth
-       
-  isUserAuthenticated():boolean{
-    if (localStorage.getItem ("accesstoken")){
+  logout() {
+    this._authenticated = false;
+    localStorage.clear();
+  }
+  /////auth
+
+  isUserAuthenticated(): boolean {
+    if (localStorage.getItem("accesstoken")) {
       return true;
     }
     this.router.navigate(["/signin"])
-return false;
+    return false;
   }
- /* login(authenticationRequest : AuthenticationRequest):Observable<AuthenticationResponse>{
-    const url=this.baseUrl+"/authenticate"
-    return this.httpClient.post<AuthenticationResponse>(url,authenticationRequest)
-  }*/
+  /* login(authenticationRequest : AuthenticationRequest):Observable<AuthenticationResponse>{
+     const url=this.baseUrl+"/authenticate"
+     return this.httpClient.post<AuthenticationResponse>(url,authenticationRequest)
+   }*/
 
 
 
 
-  ajouterprof(user: Professeur):Observable<any>{
-    const url=this.baseUrl+"/registerprofesseur"
-    return this._httpClient.post<any>(url,user)
+  ajouterprof(user: Professeur): Observable<any> {
+    const url = this.baseUrl + "/registerprofesseur"
+    return this._httpClient.post<any>(url, user)
   }
   /*updateuser(registerRequest: any):Observable<any>{
     const url=this.baseUrlcontuser+"/updateuserconnected"
@@ -159,8 +155,8 @@ return false;
 
 
 
- 
- //recupid
+
+  //recupid
   /*getuserconectedById(): Observable<any> {
     return this._httpClient.get<any>(`${this.baseUrlcontuser}/finduserbyauth`);
   }
@@ -200,7 +196,7 @@ getAllprof(): Observable<ProfesseurDto[]> {
       map((response:any) => response as UserDto[])
     );
   }*/
- 
+
 
 
 
@@ -223,25 +219,23 @@ getAllprof(): Observable<ProfesseurDto[]> {
     const url = `${this.baseUrl}/savedeactivate`;
     return this._httpClient.post(url,  userId );
   }*/
- /* setUserToken (authenticationResponse: AuthenticationResponse){
-    localStorage.setItem("accessToken",JSON.stringify(authenticationResponse))
-  const token = authenticationResponse.accessToken;
-  if (token) {
-  const decodedToken = jwtDecode(token) as any;
-  const fullname = decodedToken.fullname;
-  localStorage.setItem("fullname", fullname);
-  const userId = decodedToken.userId;
-  localStorage.setItem("userId", userId);
-  const role = decodedToken.role;
-  localStorage.setItem("role", role);
-
-
-
-
-  console.log("uuuuuuuuuuuuuuuuuuuuuuuuuu")
-  console.log("HHHHHHHHH",decodedToken)
-    }
-  }*/
+  /* setUserToken (authenticationResponse: AuthenticationResponse){
+     localStorage.setItem("accessToken",JSON.stringify(authenticationResponse))
+   const token = authenticationResponse.accessToken;
+   if (token) {
+   const decodedToken = jwtDecode(token) as any;
+   const fullname = decodedToken.fullname;
+   localStorage.setItem("fullname", fullname);
+   const userId = decodedToken.userId;
+   localStorage.setItem("userId", userId);
+   const role = decodedToken.role;
+   localStorage.setItem("role", role);
+ 
+ 
+ 
+ 
+     }
+   }*/
   /*activebyid(userId: number): Observable<UserDto> {
     return this.httpClient.post<UserDto>(`${this.baseUrl}/savedeactivate/${userId}`, {});
   }*/
