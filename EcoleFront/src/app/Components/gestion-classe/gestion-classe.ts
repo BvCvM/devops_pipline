@@ -176,7 +176,7 @@ export class GestionClasse {
     this.serviceClasse.updateClass(this.viewmodelclass)
       .subscribe({
         next: (res) => {
-          alert("classe a été modifie!")
+          alert("classe a été modifiée!")
           this.getListClasse()
           console.log(res)
           this.submitted = true;
