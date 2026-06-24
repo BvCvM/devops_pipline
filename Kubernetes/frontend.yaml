@@ -17,8 +17,6 @@ spec:
         image: bassemamri/ecolefront-app:latest
         ports:
         - containerPort: 80
-#déclancher le pipeline
-#automatiquement
 ---
 apiVersion: v1
 kind: Service
