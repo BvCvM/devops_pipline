@@ -17,6 +17,7 @@ spec:
         image: bassemamri/ecolefront-app:latest
         ports:
         - containerPort: 80
+#Commentaire pour tester 
 ---
 apiVersion: v1
 kind: Service
