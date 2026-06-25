@@ -14,4 +14,4 @@ images:
   - name: bassemamri/ecoleback-app
     newTag: build-119
   - name: bassemamri/ecolefront-app
-    newTag: build-113
+    newTag: build-119
